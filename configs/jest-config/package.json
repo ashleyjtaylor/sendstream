@@ -1,0 +1,9 @@
+{
+  "name": "@sendstream/jest-config",
+  "version": "1.0.0",
+  "license": "ISC",
+  "type": "module",
+  "exports": {
+    "./node.js": "./node.js"
+  }
+}
