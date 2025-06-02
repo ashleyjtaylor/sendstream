@@ -19,7 +19,6 @@
     "configs/*"
   ],
   "devDependencies": {
-    "@changesets/cli": "^2.29.4",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "husky": "^9.1.7",
@@ -30,7 +29,7 @@
     "node": "24.1.0",
     "npm": "11.3.0"
   },
-    "commitlint": {
+  "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
     ]
