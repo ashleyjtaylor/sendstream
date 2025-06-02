@@ -1,0 +1,13 @@
+{
+  "extends": "@sendstream/ts-config/base.json",
+  "include": ["src", "test"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "moduleResolution": "NodeNext",
+    "types": ["node", "jest"],
+    "outDir": "dist",
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true
+  }
+}
