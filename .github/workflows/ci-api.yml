@@ -1,0 +1,77 @@
+name: ci-api
+
+env:
+  NODE_VERSION: 24
+  WORKING_DIRECTORY: ./apps/api
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - apps/api/**
+      - .github/workflows/ci-api.yml
+  pull_request:
+    paths:
+      - apps/api/**
+      - .github/workflows/ci-api.yml
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/checkout
+      - uses: ./.github/actions/setup-node.yml
+      - run: npx commitlint --from=HEAD~1 --to=HEAD
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/checkout
+      - uses: ./.github/actions/setup-node
+      - run: npm audit || echo "audit failed"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/checkout
+      - uses: ./.github/actions/setup-node.yml
+      - run: npx turbo run lint --filter ${{ env.WORKING_DIRECTORY }}...
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/checkout
+      - uses: ./.github/actions/setup-node.yml
+      - run: npx turbo run typecheck --filter ${{ env.WORKING_DIRECTORY }}...
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/checkout
+      - uses: ./.github/actions/setup-node.yml
+      - run: npx turbo run test --filter ${{ env.WORKING_DIRECTORY }}...
+
+      - name: Archive code coverage
+        uses: actions/upload-artifact@v4
+        with:
+          retention-days: 1
+          name: ${{ github.workflow }}-coverage
+          path: ${{ env.WORKING_DIRECTORY }}/coverage
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/checkout
+      - uses: ./.github/actions/setup-node.yml
+      - run: npx turbo run build --filter ${{ env.WORKING_DIRECTORY }}...
