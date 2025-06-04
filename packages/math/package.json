@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "dev": "tsc --watch",
     "build": "tsc",
-    "test": "jest --coverage",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "clean": "rimraf dist node_modules .turbo"
   },
   "devDependencies": {
