@@ -1,0 +1,31 @@
+{
+  "name": "@sendstream/api",
+  "version": "1.0.0",
+  "license": "ISC",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx watch --env-file=.env src/index.ts",
+    "build": "tsc -p .",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@sendstream/eslint-config": "*",
+    "@sendstream/ts-config": "*",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.29",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "helmet": "^8.1.0",
+    "pino": "^9.7.0"
+  }
+}

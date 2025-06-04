@@ -1,13 +1,18 @@
 {
   "extends": "@sendstream/ts-config/base.json",
-  "display": "packages/math",
+  "display": "apps/api",
   "include": ["src", "test"],
   "exclude": ["node_modules"],
   "compilerOptions": {
-    "types": ["node", "jest"],
+    "types": ["node"],
     "outDir": "dist",
     "noEmit": false,
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/utils/*": ["src/utils/*"],
+      "@/middlewares/*": ["src/middlewares/*"]
+    }
   }
 }
