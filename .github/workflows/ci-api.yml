@@ -25,14 +25,10 @@ on:
       - .github/workflows/ci-api.yml
 
 jobs:
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
   commitlint:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/checkout
       - uses: ./.github/actions/setup-node
       - run: npx commitlint --from=HEAD~1 --to=HEAD
@@ -40,33 +36,33 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   audit:
-    needs: [checkout]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/checkout
       - uses: ./.github/actions/setup-node
       - run: npm audit || echo "audit failed"
 
   lint:
-    needs: [checkout]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/checkout
       - uses: ./.github/actions/setup-node
       - run: npx turbo run lint --filter ${{ env.WORKING_DIRECTORY }}...
 
   typecheck:
-    needs: [checkout]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/checkout
       - uses: ./.github/actions/setup-node
       - run: npx turbo run typecheck --filter ${{ env.WORKING_DIRECTORY }}...
 
   test:
-    needs: [checkout]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/checkout
       - uses: ./.github/actions/setup-node
       - run: npx turbo run test --filter ${{ env.WORKING_DIRECTORY }}...
@@ -79,9 +75,9 @@ jobs:
           path: ${{ env.WORKING_DIRECTORY }}/coverage
 
   build:
-    needs: [checkout]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/checkout
       - uses: ./.github/actions/setup-node
       - run: npx turbo run build --filter ${{ env.WORKING_DIRECTORY }}...
