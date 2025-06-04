@@ -23,6 +23,7 @@ on:
     paths:
       - apps/api/**
       - .github/workflows/ci-api.yml
+  workflow_dispatch:
 
 jobs:
   audit:
