@@ -40,6 +40,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   audit:
+    needs: [checkout]
     runs-on: ubuntu-latest
     steps:
       - uses: ./.github/actions/checkout
@@ -47,6 +48,7 @@ jobs:
       - run: npm audit || echo "audit failed"
 
   lint:
+    needs: [checkout]
     runs-on: ubuntu-latest
     steps:
       - uses: ./.github/actions/checkout
@@ -54,6 +56,7 @@ jobs:
       - run: npx turbo run lint --filter ${{ env.WORKING_DIRECTORY }}...
 
   typecheck:
+    needs: [checkout]
     runs-on: ubuntu-latest
     steps:
       - uses: ./.github/actions/checkout
@@ -61,6 +64,7 @@ jobs:
       - run: npx turbo run typecheck --filter ${{ env.WORKING_DIRECTORY }}...
 
   test:
+    needs: [checkout]
     runs-on: ubuntu-latest
     steps:
       - uses: ./.github/actions/checkout
@@ -75,6 +79,7 @@ jobs:
           path: ${{ env.WORKING_DIRECTORY }}/coverage
 
   build:
+    needs: [checkout]
     runs-on: ubuntu-latest
     steps:
       - uses: ./.github/actions/checkout
