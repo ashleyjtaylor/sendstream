@@ -22,6 +22,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@sendstream/math": "^0.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^4.21.2",
